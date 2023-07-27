@@ -1,0 +1,22 @@
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366D6;
+}
+
+code {
+  color: #E01A76;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem #FFFFFF, 0 0 0 0.25rem #258CFB;
+}
+
+.btn-primary {
+  background-color: #1B6EC2;
+  border-color: #1861AC;
+  color: #FFFFFF;
+}
