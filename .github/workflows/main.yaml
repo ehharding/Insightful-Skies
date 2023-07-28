@@ -17,40 +17,116 @@ on:
       - main
     types: [closed]
 
+  workflow_dispatch:
+
 env:
   DOTNET_VERSION: 7.0.x
   NODE_VERSION: 18.x
 
 jobs:
-  build-and-deploy:
+  ########## JOB - REPOSITORY CHECKOUT ##########
+  repository-checkout:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: Git Configuration
+        run : |
+          echo "-------------------------------------- ENVIRONMENT INFORMATION --------------------------------------"
+          echo "GitHub Event Name:              "${{ github.event_name }}
+          echo "GitHub API URL:                 "$GITHUB_API_URL
+          echo "GitHub GraphQL API URL:         "$GITHUB_GRAPHQL_URL
+          echo "GitHub Server URL:              "$GITHUB_SERVER_URL
+          echo "Workflow Branch:                "$GITHUB_REF
+          echo "Workflow URL:                   "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+          echo "Workflow WebHook Event:         "$GITHUB_EVENT_NAME
+          echo "Workflow WebHook Event Payload: "$GITHUB_EVENT_PATH
+          echo "Workflow Repository:            "$GITHUB_REPOSITORY
+          echo "Workflow Initiator:             "$GITHUB_ACTOR
+          echo "Workflow Run ID:                "$GITHUB_RUN_ID
+          echo "Workflow Run Number:            "$GITHUB_RUN_NUMBER
+          echo "Workflow Name:                  "$GITHUB_WORKFLOW
+          echo "Workspace:                      "$GITHUB_WORKSPACE
+          echo ""
+          echo "See https://docs.github.com/en/actions/reference/environment-variables"
 
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+          echo "----------------------------------------- RUNNER INFORMATION ----------------------------------------"
+          echo "Runner Operating System:    "${{ runner.os }}
+          echo "Runner Temporary Directory: "${{ runner.temp }}
+          echo "Runner Tools:               "${{ runner.tool_cache }}
+          echo "-----------------------------------------------------------------------------------------------------"
+          git config --global init.defaultBranch main
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ env.NODE_VERSION }}
+      - name: Commit Snapshot - SHA-224 ${{ github.sha }}
+        uses: actions/checkout@v3
+        with:
+          clean: true
+          lfs: true
+          persist-credentials: true
+          ssh-strict: true
+          submodules: true
+          fetch-depth: 0 # Fetches all history for all branches and tags
+          ref: main
+          path: ""
+          repository: ${{ github.repository }}
+          token: ${{ github.token }}
 
-    - name: Restore Dependencies
-      run: dotnet restore
+      - name: Upload Repository Snapshot Artifact - "Insightful-Skies"
+        uses: actions/upload-artifact@v3
+        with:
+          name: Insightful-Skies
+          path: "/home/runner/work/Insightful-Skies/Insightful-Skies"
 
-    - name: Build Project
-      run: dotnet build --configuration Release --no-restore
+  ########## JOB - BUILD PRODUCTION ##########
+  build-production:
+    needs: repository-checkout
+    runs-on: ubuntu-latest
 
-    - name: Publish Project
-      run: dotnet publish --configuration Release --no-build --no-restore --output build
+    steps:
+      - name: Commit Snapshot - SHA-224 ${{ github.sha }}
+        uses: actions/download-artifact@v3
+        with:
+          name: Insightful-Skies
 
-    - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: github-pages
-        folder: build
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Build Project
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Publish Project
+        run: dotnet publish --configuration Release --no-build --no-restore --output build
+
+      - name: Upload Repository Snapshot Artifact - "build"
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: "/home/runner/work/Insightful-Skies/Insightful-Skies/build"
+
+  ########## JOB - DEPLOY ##########
+  deploy:
+    needs: build-production
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Production Build Artifact - "build"
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: "build"
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: github-pages
+          folder: build
