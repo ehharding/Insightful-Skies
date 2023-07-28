@@ -1,0 +1,86 @@
+# Copyright 2023 Evan H. Harding
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+# the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+# an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations under the License.
+
+name: Insightful Skies Issue Template
+description: Use this template to report Insightful Skies-related issues
+body:
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue Type
+      description: What type of issue would you like to report?
+      multiple: false
+      options:
+        - Bug
+        - Build/Install
+        - Documentation Bug
+        - Documentation Feature Request
+        - Feature Request
+        - Performance
+        - Support
+        - Others
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Please provide a detailed description of the issue you are experiencing.
+
+  - type: input
+    id: isversion
+    attributes:
+      label: Insightful Skies Version
+      placeholder: e.g., 0.1.0
+    validations:
+      required: true
+  - type: dropdown
+    id: Code
+    attributes:
+      label: Custom Code
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+  - type: input
+    id: OS
+    attributes:
+      label: OS Platform and Distribution
+      placeholder: e.g., Linux Ubuntu 20.04
+  - type: input
+    id: Mobile
+    attributes:
+      label: Mobile Device
+      placeholder: e.g., iPhone 14 Pro
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Current Behavior?
+      description: Describe what you expected to happen.
+      placeholder: e.g., I expected the app to do X, but it did Y instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Describe the steps to reproduce the issue.
+      placeholder: e.g., 1. Go to '...'
+      value:
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Log Output
+      description: Provide any relevant log output. This will automatically be formatted into code, so no need for backticks.
+      render: shell
