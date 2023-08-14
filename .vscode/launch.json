@@ -1,33 +1,94 @@
+// Copyright 2023 Evan H. Harding
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+// the License. You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+// an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+// specific language governing permissions and limitations under the License.
+
+/*
+ * This file is used to configure the debugger in Visual Studio Code (VSCode). When used with the C# extension for
+ * VSCode, Code, the debugger will automatically pick up the configuration in this file and run it when debugging.
+ * For more information: https://github.com/dotnet/vscode-csharp/blob/main/debugger-launchjson.md
+ */
+
 {
     "version": "0.2.0",
     "configurations": [
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/dotnet/vscode-csharp/blob/main/debugger-launchjson.md
-            "name": ".NET Core Launch (web)",
+            "name": "ASP.NET Launch Web App",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/bin/Debug/net7.0/Insightful-Skies.dll",
-            "args": [],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "openOnFirstSessionStart",
             "cwd": "${workspaceFolder}",
+            "launchSettingsFilePath": "${cwd}/Properties/launchSettings.json",
+            "program": "${workspaceFolder}/bin/Debug/net7.0/${config:applicationName}.dll",
+            "allowFastEvaluate": true,
+            "checkForDevCert": true,
+            "enableStepFiltering": true,
+            "justMyCode": true,
+            "requireExactSource": true,
             "stopAtEntry": false,
-            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+            "suppressJITOptimizations": false,
+            "suppressMultipleSessionWarning": false,
+            "args": [],
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "launchBrowser": {
+                "args": "${auto-detect-url}",
+                "enabled": true,
+                "linux": {
+                    "command": "xdg-open",
+                    "args": "${auto-detect-url}",
+                },
+                "osx": {
+                    "command": "open",
+                    "args": "${auto-detect-url}"
+                },
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}"
+                }
+            },
+            "logging": {
+                "browserStdOut": true,
+                "elapsedTiming": false,
+                "engineLogging": false,
+                "exceptions": true,
+                "moduleLoad": true,
+                "processExit": true,
+                "programOutput": true,
+                "threadExit": false
+            },
+            "presentation": {
+                "group": "ASP.NET",
+                "hidden": false,
+                "order": 1
+            },
+            // Enable launching a web browser when ASP.NET starts.
+            // For more information: https://github.com/dotnet/vscode-csharp/blob/main/debugger-launchjson.md#starting-a-web-browser
             "serverReadyAction": {
                 "action": "openExternally",
                 "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
             },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+            "symbolOptions": {
+                "searchMicrosoftSymbolServer": false,
+                "searchNuGetOrgSymbolServer": false,
+                "searchPaths": [],
+                "moduleFilter": {
+                    "mode": "loadAllButExcluded",
+                    "excludedModules": []
+                }
             }
         },
         {
-            "name": ".NET Core Attach",
+            "name": "ASP.NET Attach",
             "type": "coreclr",
             "request": "attach"
         }

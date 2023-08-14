@@ -77,7 +77,7 @@ jobs:
           name: Insightful-Skies
           path: "/home/runner/work/Insightful-Skies/Insightful-Skies"
 
-  ########## JOB - BUILD PRODUCTION ##########
+  ########## JOB - BUILD PRODUCTION AND DEPLOY ##########
   build-production:
     needs: repository-checkout
     runs-on: ubuntu-latest
@@ -113,20 +113,9 @@ jobs:
           name: build
           path: "/home/runner/work/Insightful-Skies/Insightful-Skies/build"
 
-  ########## JOB - DEPLOY ##########
-  deploy:
-    needs: build-production
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download Production Build Artifact - "build"
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: "build"
-
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: github-pages
+          branch: gh-pages
           folder: build
+          token: ${{ github.token }}

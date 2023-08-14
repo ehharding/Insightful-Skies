@@ -1,0 +1,36 @@
+# This file is used by GitHub to populate the "Sponsor" button in the repository header.
+#
+# For more information:
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+#
+# Note: GitHub seems to actually care about the file extension, so do not use .yaml. It will not work.
+
+# Any custom sponsorship links - quotes are only needed for values with colons (":").
+custom: ["https://www.paypal.me/ehharding"]
+
+# LFX Mentorship (https://lfx.linuxfoundation.org/tools/mentorship) Specify LFX project-name (e.g., cloud-foundry)
+community_bridge:
+
+# GitHub Sponsors (https://github.com/sponsors) Specify up to four GitHub Sponsors-enabled usernames
+github: []
+
+# IssueHunt (https://issuehunt.io) Specify IssueHunt username
+issuehunt:
+
+# Ko-fi (https://ko-fi.com) Specify Ko-fi username
+ko_fi:
+
+# Liberapay (https://en.liberapay.com) Specify Liberapay username
+liberapay:
+
+# Open Collective (https://opencollective.com) Specify Open Collective username
+open_collective:
+
+# Otechie (https://otechie.com) Specify Otechie username
+otechie:
+
+# Patreon (https://www.patreon.com) - Specify Patreon username
+patreon:
+
+# Tidelift (https://tidelift.com) - Specify Tidelift platform-name/package-name (e.g., npm/babel)
+tidelift:

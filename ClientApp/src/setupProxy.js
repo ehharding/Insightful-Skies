@@ -1,5 +1,3 @@
-// TODO: Convert this file to TypeScript and use the types from @types/http-proxy-middleware.
-
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const { env } = require('process');
 

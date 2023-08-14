@@ -8,46 +8,6 @@ namespace InsightfulSkies.Geocoding
         public Result? Result { get; set; }
     }
 
-    // See https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.pdf for the up-to-date schema.
-    //
-    // {
-    //   "result": {
-    //     "input": {
-    //       "address": {"address": "4600 Silver Hill Rd, Washington, DC 20233"},
-    //       "benchmark": {
-    //         "isDefault": false,
-    //         "benchmarkDescription": "Public Address Ranges - Census 2020 Benchmark",
-    //         "id": "2020",
-    //         "benchmarkName": "Public_AR_Census2020"
-    //       }
-    //     },
-    //     "addressMatches": [{
-    //       "tigerLine": {
-    //         "side": "L",
-    //         "tigerLineId": "76355984"
-    //       },
-    //       "coordinates": {
-    //         "x": -76.92744,
-    //         "y": 38.845985
-    //       },
-    //       "addressComponents": {
-    //         "zip": "20233",
-    //         "streetName": "SILVER HILL",
-    //         "preType": "",
-    //         "city": "WASHINGTON",
-    //         "preDirection": "",
-    //         "suffixDirection": "",
-    //         "fromAddress": "4600",
-    //         "state": "DC",
-    //         "suffixType": "RD",
-    //         "toAddress": "4700",
-    //         "suffixQualifier": "",
-    //         "preQualifier": ""
-    //       },
-    //       "matchedAddress": "4600 SILVER HILL RD, WASHINGTON, DC, 20233"
-    //     }]
-    //   }
-    // }
     public class Result
     {
         [JsonPropertyName("input")]
