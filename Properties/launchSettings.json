@@ -10,6 +10,7 @@
   "profiles": {
     "Insightful Skies": {
       "commandName": "Project",
+      "dotnetRunMessages": true,
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7007;http://localhost:5023",
       "environmentVariables": {

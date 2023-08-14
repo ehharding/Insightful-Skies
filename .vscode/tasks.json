@@ -1,13 +1,29 @@
+// Copyright 2023 Evan H. Harding
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+// the License. You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+// an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+// specific language governing permissions and limitations under the License.
+
+// This file defines the tasks that can be run from the Visual Studio Code command palette (Ctrl+Shift+P) during
+// development. The tasks are defined in the order they appear in the command palette.
+// About VSCode Tasks: https://code.visualstudio.com/Docs/editor/tasks
+// VSCode Tasks Schema: https://code.visualstudio.com/docs/editor/tasks-appendix
+
 {
     "version": "2.0.0",
     "tasks": [
         {
             "label": "build",
-            "command": "dotnet",
             "type": "process",
+            "command": "dotnet",
             "args": [
                 "build",
-                "${workspaceFolder}/Insightful-Skies.csproj",
+                "${workspaceFolder}/InsightfulSkies.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -15,11 +31,11 @@
         },
         {
             "label": "publish",
-            "command": "dotnet",
             "type": "process",
+            "command": "dotnet",
             "args": [
                 "publish",
-                "${workspaceFolder}/Insightful-Skies.csproj",
+                "${workspaceFolder}/InsightfulSkies.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -27,13 +43,13 @@
         },
         {
             "label": "watch",
-            "command": "dotnet",
             "type": "process",
+            "command": "dotnet",
             "args": [
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/Insightful-Skies.csproj"
+                "${workspaceFolder}/InsightfulSkies.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
